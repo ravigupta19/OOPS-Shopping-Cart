@@ -285,7 +285,7 @@ def addsitepackages(known_paths, sys_prefix=sys.prefix, exec_prefix=sys.exec_pre
 def check_enableusersite():
     """Check if user site directory is safe for inclusion
 
-    The function tests for the command line flag (including environment var),
+    The function test for the command line flag (including environment var),
     process uid/gid equal to effective uid/gid.
 
     None: Disabled for security reasons
@@ -695,7 +695,7 @@ def main():
     if ENABLE_USER_SITE:
         execusercustomize()
     # Remove sys.setdefaultencoding() so that users cannot change the
-    # encoding after initialization.  The tests for presence is needed when
+    # encoding after initialization.  The test for presence is needed when
     # this module is run as a script, because this code is executed twice.
     if hasattr(sys, "setdefaultencoding"):
         del sys.setdefaultencoding
