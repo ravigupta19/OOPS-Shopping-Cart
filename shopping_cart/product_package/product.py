@@ -3,7 +3,6 @@ class Product:
     def __init__(self, name, price):
         self.__name = None
         self.__price = 0
-        self.__tax = 0
         self._set_name(name)
         self._set_price(price)
 
