@@ -38,3 +38,7 @@ class Item:
     def _calculate_sub_total(self):
         sub_total = self.__product.get_price() * self.__quantity
         self.__sub_total = roundup(sub_total, 2)
+
+    def update_quantity_of_item(self, quantity):
+        self.__quantity = quantity
+        self._calculate_sub_total()

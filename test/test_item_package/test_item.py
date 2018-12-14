@@ -48,3 +48,27 @@ def test_item_sub_total_should_round_value_by_2_decimal():
     product = Product('Test 1', 19.499)
     item = Item(product, 9)
     assert item.get_sub_total() == 175.5
+
+
+def test_item_should_have_attribute_update_quantity_of_item(item):
+    assert hasattr(item, 'update_quantity_of_item')
+
+
+def test_item_update_quantity_of_item(product):
+    item = Item(product, 4)
+    assert item.get_quantity() == 4
+    assert item.get_sub_total() == 156
+
+    """Increase the quantity of the item"""
+    new_quantity = 9
+    expected_sub_total = product.get_price() * 9
+    item.update_quantity_of_item(new_quantity)
+    assert item.get_quantity() == new_quantity
+    assert item.get_sub_total() == expected_sub_total
+
+    """Decrease the quantity of the item"""
+    new_quantity = 6
+    expected_sub_total = product.get_price() * new_quantity
+    item.update_quantity_of_item(new_quantity)
+    assert item.get_quantity() == new_quantity
+    assert item.get_sub_total() == expected_sub_total
