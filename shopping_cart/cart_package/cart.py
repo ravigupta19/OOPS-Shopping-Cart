@@ -1,11 +1,16 @@
 from shopping_cart.item_package.item import Item
+from shopping_cart.lib_package.lib import roundup
 
 
 class Cart:
 
+    SALES_TAX = 12.5
+
     def __init__(self):
         self.__items = []
         self.__total = 0
+        self.__subtotal = 0
+        self.__tax = 0
 
     def add_item_in_cart(self, item):
         """This function will add item to the item list of the cart
@@ -14,7 +19,9 @@ class Cart:
         if isinstance(item, Item) is False:
             raise ValueError('item param should be instance of Item class')
         self.__items.append(item)
-        self.__total = self.__total + item.get_sub_total()
+        self._update_the_subtotal_of_cart()
+        self._calculate_tax_of_cart()
+        self._calculate_sum_of_tax_and_subtotal()
 
     def get_total_cart_cost(self):
         """Get the total cost of the cart"""
@@ -23,10 +30,10 @@ class Cart:
     def get_all_items_in_cart(self):
         return self.__items
 
-    def _update_the_total_of_cart(self):
-        self.__total = 0
+    def _update_the_subtotal_of_cart(self):
+        self.__subtotal = 0
         for item in self.__items:
-            self.__total = self.__total + item.get_sub_total()
+            self.__subtotal = self.__subtotal + item.get_sub_total()
 
     def increase_quantity_of_item(self, item, quantity):
         if item not in self.__items:
@@ -40,8 +47,10 @@ class Cart:
         new_quantity = item.get_quantity() + quantity
         item.update_quantity_of_item(new_quantity)
 
-        """This steps will recalculate the total cart"""
-        self._update_the_total_of_cart()
+        """This steps will recalculate the total cart, subtotal of cart and tax"""
+        self._update_the_subtotal_of_cart()
+        self._calculate_tax_of_cart()
+        self._calculate_sum_of_tax_and_subtotal()
 
     def decrease_quantity_of_item(self, item, quantity):
         if item not in self.__items:
@@ -64,5 +73,19 @@ class Cart:
         else:
             item.update_quantity_of_item(new_quantity)
 
-        """This steps will recalculate the total of cart"""
-        self._update_the_total_of_cart()
+        """This steps will recalculate the total cart, subtotal of cart and tax"""
+        self._update_the_subtotal_of_cart()
+        self._calculate_tax_of_cart()
+        self._calculate_sum_of_tax_and_subtotal()
+
+    def _calculate_tax_of_cart(self):
+        self.__tax = roundup(self.__subtotal * Cart.SALES_TAX/100, 2)
+
+    def _calculate_sum_of_tax_and_subtotal(self):
+        self.__total = self.__subtotal + self.__tax
+
+    def get_total_tax_of_cart(self):
+        return self.__tax
+
+    def get_subtotal_of_cart(self):
+        return self.__subtotal

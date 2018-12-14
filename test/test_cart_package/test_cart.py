@@ -34,12 +34,14 @@ def test_cart_should_have_get_all_items_in_cart_as_a_method(cart):
 def test_cart_constructor(cart):
     assert cart.get_total_cart_cost() == 0
     assert len(cart.get_all_items_in_cart()) == 0
+    assert cart.get_subtotal_of_cart() == 0
+    assert cart.get_total_tax_of_cart() == 0
 
 
 def test_cart_add_item(cart, item):
     cart.add_item_in_cart(item)
     assert len(cart.get_all_items_in_cart()) == 1
-    assert cart.get_total_cart_cost() == 57
+    assert cart.get_subtotal_of_cart() == 57
 
 
 def test_cart_add_item_should_raise_exception(cart):
@@ -56,7 +58,7 @@ def test_cart_total_cost_should_be_roundup_by_2_decimal(cart):
     expected_no_of_items = 1
     expected_total_cost_cart = 199.95
     assert len(cart.get_all_items_in_cart()) == expected_no_of_items
-    assert cart.get_total_cart_cost() == expected_total_cost_cart
+    assert cart.get_subtotal_of_cart() == expected_total_cost_cart
 
 
 def test_cart_increase_quantity_of_item(cart):
@@ -98,6 +100,14 @@ def test_cart_should_raise_the_exception(cart, item, product):
         cart.decrease_quantity_of_item(item, "4")
 
 
+def test_cart_should_have_get_total_tax_of_cart_as_a_method(cart):
+    assert hasattr(cart, 'get_total_tax_of_cart')
+
+
+def test_cart_should_have_get_total_tax_of_cart_as_a_method(cart):
+    assert hasattr(cart, 'get_subtotal_of_cart')
+
+
 def test_cart_increase_item_quantity(cart):
     """Create product"""
     product = Product('Dove Soap', 39.99)
@@ -110,14 +120,18 @@ def test_cart_increase_item_quantity(cart):
     assert len(cart.get_all_items_in_cart()) == 1
     cart_item = cart.get_all_items_in_cart()[0]
     assert cart_item.get_quantity() == 5
-    assert cart.get_total_cart_cost() == 199.95
+    assert cart.get_subtotal_of_cart() == 199.95
+    assert cart.get_total_tax_of_cart() == 25.0
+    assert cart.get_total_cart_cost() == 224.95
 
     """increase the item quantity by 5 """
     cart.increase_quantity_of_item(item, 3)
     assert len(cart.get_all_items_in_cart()) == 1
     cart_item = cart.get_all_items_in_cart()[0]
     assert cart_item.get_quantity() == 8
-    assert cart.get_total_cart_cost() == 319.92
+    assert cart.get_subtotal_of_cart() == 319.92
+    assert cart.get_total_tax_of_cart() == 39.99
+    assert cart.get_total_cart_cost() == 359.91
 
 
 def test_cart_decrease_quantity_item(cart):
@@ -132,7 +146,9 @@ def test_cart_decrease_quantity_item(cart):
     assert len(cart.get_all_items_in_cart()) == 1
     cart_item = cart.get_all_items_in_cart()[0]
     assert cart_item.get_quantity() == 5
-    assert cart.get_total_cart_cost() == 199.95
+    assert cart.get_subtotal_of_cart() == 199.95
+    assert cart.get_total_tax_of_cart() == 25.0
+    assert cart.get_total_cart_cost() == 224.95
 
     """update the item quantity to zero"""
     descrease_quantity_by_3 = 3
@@ -140,7 +156,9 @@ def test_cart_decrease_quantity_item(cart):
     assert len(cart.get_all_items_in_cart()) == 1
     cart_item = cart.get_all_items_in_cart()[0]
     assert cart_item.get_quantity() == 2
-    assert cart.get_total_cart_cost() == 79.98
+    assert cart.get_subtotal_of_cart() == 79.98
+    assert cart.get_total_tax_of_cart() == 10.0
+    assert cart.get_total_cart_cost() == 89.98
 
 
 def test_cart_decrease_quantity_item_to_zero(cart):
@@ -155,10 +173,14 @@ def test_cart_decrease_quantity_item_to_zero(cart):
     assert len(cart.get_all_items_in_cart()) == 1
     cart_item = cart.get_all_items_in_cart()[0]
     assert cart_item.get_quantity() == 5
-    assert cart.get_total_cart_cost() == 199.95
+    assert cart.get_subtotal_of_cart() == 199.95
+    assert cart.get_total_tax_of_cart() == 25.0
+    assert cart.get_total_cart_cost() == 224.95
 
     """update the item quantity to zero"""
     quantity = cart.get_all_items_in_cart()[0].get_quantity()
     cart.decrease_quantity_of_item(item, quantity)
     assert len(cart.get_all_items_in_cart()) == 0
+    assert cart.get_subtotal_of_cart() == 0
+    assert cart.get_total_tax_of_cart() == 0
     assert cart.get_total_cart_cost() == 0
