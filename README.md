@@ -19,7 +19,7 @@ for all the test cases
 * python -m  pytest test
 
 for functional test cases of STEP 1
-* python -m  pytest test/test_shopping_cart_step1.py
+* python -m  pytest test/test_shopping_cart_functional.py
 
 
 ### To run test cases as bash script
@@ -28,7 +28,7 @@ for all the test cases
 
 
 for the functional test cases of STEP 1
-* ./bin/run_functional_test_case_step1.sh
+* ./bin/test_shopping_cart_functional.sh
 
 
 
