@@ -1,25 +1,23 @@
 #Welcome to Shopping cart
 
 ###Prerequisite
-* Python 3
-* pip
-* virtualenv
+* python3
+* pip3 - for python3
 * pytest - for test cases
 
 ### Version Number
 78d7829462b6615e7c3b39157bcb54d47fb00ba2
 
-### How to build
-This command will activate the virtual environment of python to run this program smoothly
-* run command:- source env/bin/activate
+### To install dependencies
+run ./bin/install_dependencies.sh
 
 
 ### To run test cases from command line
 for all the test cases
-* python -m  pytest test
+* python3 -m  pytest test
 
 for functional test cases of STEP 1
-* python -m  pytest test/test_shopping_cart_functional.py
+* python3 -m  pytest test/test_shopping_cart_functional.py
 
 
 ### To run test cases as bash script
@@ -30,6 +28,7 @@ for all the test cases
 for the functional test cases of STEP 1
 * ./bin/test_shopping_cart_functional.sh
 
-
+### To run main script
+run ./bin/run_main.sh
 
 
